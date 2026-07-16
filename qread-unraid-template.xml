@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>qread</Name>
+  <Description>轻阅读 - 全端同步网络阅读服务端</Description>
+  <Registry>https://hub.docker.com/r/autobcb/read</Registry>
+  <Network>host</Network>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/autobcb/read</Support>
+  <Project>https://github.com/autobcb/read</Project>
+  <Overview>轻阅读是一个全移动端可用的阅读服务端，支持多端同步进度、书源规则、RSS订阅、TTS朗读。Web端可直接阅读，手机端有原生App。</Overview>
+  <Category>图书:图书工具</Category>
+  <WebUI>http://[IP]:[PORT:8080]/</WebUI>
+  <TemplateURL>https://raw.githubusercontent.com/autobcb/read/main/qread-unraid-template.xml</TemplateURL>
+  <Icon>https://raw.githubusercontent.com/autobcb/read/main/png/book.png</Icon>
+  <Donations>http://app.qread.xyz/pay</Donations>
+  <Config Name="WebUI端口" Target="8080" Default="8080" Mode="tcp" Description="Web管理界面端口" Type="Port" Display="always" Required="true" Mask="false">8080</Config>
+  <Config Name="应用数据" Target="/app" Default="/mnt/user/appdata/qread" Mode="rw" Description="应用数据目录（包含read.jar和conf.yml）" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/qread</Config>
+  <Config Name="时区" Target="TZ" Default="Asia/Shanghai" Mode="" Description="系统时区" Type="Variable" Display="always" Required="false" Mask="false">Asia/Shanghai</Config>
+  <Config Name="数据库类型" Target="DB_TYPE" Default="sqlite" Mode="" Description="数据库类型: sqlite 或 mysql" Type="Variable" Display="always" Required="false" Mask="false">sqlite</Config>
+  <Config Name="管理员账号" Target="ADMIN_USERNAME" Default="admin" Mode="" Description="后台管理员账号" Type="Variable" Display="always" Required="false" Mask="false">admin</Config>
+  <Config Name="管理员密码" Target="ADMIN_PASSWORD" Default="adminadmin" Mode="" Description="后台管理员密码" Type="Variable" Display="always" Required="false" Mask="true">adminadmin</Config>
+  <Config Name="用户修改书源" Target="USER_SOURCE" Default="0" Mode="" Description="0=不允许修改 1=允许后台修改 2=独立书源" Type="Variable" Display="always" Required="false" Mask="false">0</Config>
+  <Config Name="用户自助修改权限" Target="USER_ALLOWCHANGE" Default="true" Mode="" Description="是否允许自助修改权限" Type="Variable" Display="always" Required="false" Mask="false">true</Config>
+  <Config Name="自动采集" Target="AUTO_CRAWL" Default="true" Mode="" Description="添加书源后自动采集全部书籍" Type="Variable" Display="always" Required="false" Mask="false">true</Config>
+  <Config Name="定时更新章节" Target="ADMIN_UPDATE" Default="false" Mode="" Description="是否开启定时更新最新章节（共享后端请关闭）" Type="Variable" Display="always" Required="false" Mask="false">false</Config>
+</Container>

@@ -1,0 +1,94 @@
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+.idea/
+logs/
+build/
+bookcache/
+libs/
+local
+cookie/
+storage/
+read.db
+solon-read.iml
+
+### IntelliJ IDEA ###
+.idea/modules.xml
+.idea/jarRepositories.xml
+.idea/compiler.xml
+.idea/libraries/
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+### Kotlin ###
+.kotlin
+
+### Eclipse ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+### Mac OS ###
+.DS_Store
+# Flutter Web build output (download from release)
+src/main/resources/static/main.dart.js*
+src/main/resources/static/main.dart.js_*.part.js
+src/main/resources/static/canvaskit/
+src/main/resources/static/flutter-canvaskit/
+src/main/resources/static/flutter.js
+src/main/resources/static/flutter_bootstrap.js
+src/main/resources/static/flutter_service_worker.js
+src/main/resources/static/assets/AssetManifest.bin
+src/main/resources/static/assets/FontManifest.json
+src/main/resources/static/assets/NOTICES
+src/main/resources/static/assets/fonts/
+src/main/resources/static/assets/shaders/
+src/main/resources/static/assets/packages/
+src/main/resources/static/favicon.ico
+src/main/resources/static/favicon.png
+src/main/resources/static/icons/
+src/main/resources/static/manifest.json
+src/main/resources/static/version.json
+
+# Gradle wrapper jar
+gradle/wrapper/gradle-wrapper.jar
+
+# Build outputs
+build/
+libs/
+
+# PNG screenshots
+png/
+
+# IDE
+.idea/
+*.iml
+
+# OS
+.DS_Store
+
+# Library JARs (download via gradle)
+book/src/lib/*.jar
