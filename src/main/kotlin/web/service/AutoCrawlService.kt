@@ -124,7 +124,7 @@ object AutoCrawlService {
                         if (searchBook.bookUrl.isBlank() || searchBook.name.isBlank()) continue
 
                         // 检查是否已在书架
-                        val existing = booklistMapper.getbook(user.id, searchBook.bookUrl)
+                        val existing = booklistMapper.getbook(user.id!!, searchBook.bookUrl)
                         if (existing != null) continue
 
                         // 添加到书架
@@ -204,7 +204,7 @@ object AutoCrawlService {
     ): List<SearchBook>? {
         return withTimeoutOrNull(30000) {
             runCatching {
-                val wBook = WBook(bs, user.id!!, null, false)
+                val wBook = WBook(bs, debugLog = false, userid = user.id!!)
                 wBook.exploreBook(exploreUrl, page)
             }.onFailure { e ->
                 logger.warn("探索页[$exploreUrl] page=$page 失败: ${e.message}")
@@ -226,7 +226,7 @@ object AutoCrawlService {
         val bookInfo = runBlocking {
             withTimeoutOrNull(15000) {
                 runCatching {
-                    val wBook = WBook(BookSource.fromJson(source.json).getOrNull() ?: return@runCatching null, user.id, null, false)
+                    val wBook = WBook(BookSource.fromJson(source.json).getOrNull() ?: return@runCatching null, debugLog = false, userid = user.id)
                     wBook.getBookInfo(searchBook.bookUrl, canReName = false)
                 }.getOrNull()
             }
