@@ -117,22 +117,20 @@ tasks {
 
     jar {
         dependsOn(copyDependencies)
-        duplicatesStrategy = DuplicatesStrategy.INCLUDE
-        //duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
         manifest {
-            attributes("Class-Path" to classPathEntries)
+            attributes("Main-Class" to mainClassName)
         }
-        manifest.attributes["Main-Class"] = mainClassName
-        //from(configurations.runtimeClasspath.get().files.map { "$libsDir/${it.name}" }
-         //   .joinToString(" "))
-
-
-
-        //exclude("LICENSE.txt", "NOTICE.txt", "rootdoc.txt")
-       // exclude("META-INF/*.RSA", "META-INF/*.SF", "META-INF/*.DSA")
-       // exclude("META-INF/NOTICE", "META-INF/NOTICE.txt")
-        //exclude("META-INF/LICENSE", "META-INF/LICENSE.txt")
-        //exclude("META-INF/DEPENDENCIES")
+        from({
+            configurations.runtimeClasspath.get().files.map { 
+                if (it.isDirectory) it else zipTree(it) 
+            }
+        }) {
+            exclude("META-INF/*.RSA", "META-INF/*.SF", "META-INF/*.DSA")
+            exclude("META-INF/NOTICE", "META-INF/NOTICE.txt")
+            exclude("META-INF/LICENSE", "META-INF/LICENSE.txt")
+            exclude("META-INF/DEPENDENCIES")
+        }
     }
 
     // 清理生成的libs目录
