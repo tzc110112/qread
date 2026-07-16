@@ -23,7 +23,7 @@ FROM eclipse-temurin:22-jre
 WORKDIR /app
 
 COPY --from=builder /build/build/libs/solon-read-*.jar /app/read.jar
-COPY --from=builder /build/conf/conf.yml /app/conf/conf.yml
+COPY --from=builder /build/conf/conf.yml /app/conf.yml
 COPY docker-entrypoint.sh /app/entrypoint.sh
 
 RUN chmod +x /app/entrypoint.sh

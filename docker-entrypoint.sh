@@ -1,7 +1,7 @@
 #!/bin/sh
 # 轻阅读 Docker 启动入口
 
-CONF=/app/conf/conf.yml
+CONF=/app/conf.yml
 JAR=/app/read.jar
 
 # admin
