@@ -20,14 +20,15 @@ COPY --from=builder /build/build/libs/solon-read-*.jar /app/read.jar
 COPY --from=builder /build/conf/conf.yml /app/conf.yml
 COPY docker-entrypoint.sh /app/entrypoint.sh
 
-# 下载 Flutter Web 前端静态资源并解压到 /app（和 jar 同级）
-# static/ 下的文件会被 Solon 自动作为静态资源服务
+# 下载 Flutter Web 前端静态资源并解压到 /app/web/
+# Solon 通过 StaticMappings.add("/", FileStaticRepository("web/")) 服务
 ARG FLUTTER_ASSETS_URL=https://github.com/tzc110112/qread/releases/download/v1.0.0/flutter-web-static.tar.gz
 RUN set -eux; \
     apt-get update; \
     apt-get install -y wget; \
     wget -q "$FLUTTER_ASSETS_URL" -O /tmp/flutter-web-static.tar.gz; \
-    tar xzf /tmp/flutter-web-static.tar.gz -C /app; \
+    mkdir -p /app/web; \
+    tar xzf /tmp/flutter-web-static.tar.gz -C /app/web; \
     rm -f /tmp/flutter-web-static.tar.gz; \
     apt-get remove -y wget; \
     apt-get autoremove -y; \
