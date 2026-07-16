@@ -1,21 +1,24 @@
-FROM docker.1ms.run/openjdk:22-rc-oracle AS builder
+# 使用 eclipse-temurin 基础镜像（带 apt）
+FROM eclipse-temurin:22-jdk AS builder
 
 WORKDIR /build
 
-RUN set -eux; \
-    apt-get update; \
-    apt-get install -y unzip wget; \
-    wget -q https://services.gradle.org/distributions/gradle-8.10-bin.zip -O gradle.zip; \
-    unzip -q gradle.zip; \
-    rm gradle.zip; \
-    mv gradle-8.10 /opt/gradle
+# 复制 gradle wrapper
+COPY gradlew gradlew.bat ./
+COPY gradle/wrapper/ gradle/wrapper/
 
+# 复制源码
 COPY . /build
-RUN /opt/gradle/bin/gradle clean jar --no-daemon && \
-    rm -rf /root/.gradle /opt/gradle
+
+# 国内镜像加速（可选，Github Actions 不需要）
+# RUN sed -i 's|services.gradle.org|mirrors.tencent.com/gradle|g' gradle/wrapper/gradle-wrapper.properties
+
+RUN chmod +x ./gradlew && \
+    ./gradlew clean jar --no-daemon -x test && \
+    rm -rf /root/.gradle
 
 # ---- runtime ----
-FROM docker.1ms.run/openjdk:22-rc-oracle
+FROM eclipse-temurin:22-jre
 
 WORKDIR /app
 

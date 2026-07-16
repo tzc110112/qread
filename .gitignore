@@ -1,6 +1,5 @@
 .gradle
 build/
-!gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
 .idea/
@@ -74,7 +73,6 @@ src/main/resources/static/manifest.json
 src/main/resources/static/version.json
 
 # Gradle wrapper jar
-gradle/wrapper/gradle-wrapper.jar
 
 # Build outputs
 build/
