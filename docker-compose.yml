@@ -2,58 +2,26 @@ version: "3.8"
 
 services:
   qread:
-    image: docker.1ms.run/openjdk:22-rc-oracle
+    image: ghcr.io/tzc110112/qread:latest
     container_name: qread
     restart: unless-stopped
     network_mode: host
     environment:
       TZ: Asia/Shanghai
 
-      # =========== 数据库设置 ===========
-      DB_TYPE: sqlite
-      DB_JDBCURL: jdbc:mysql://127.0.0.1:3306/qread?characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=UTC
-      DB_USERNAME: root
-      DB_PASSWORD: password
-
-      # =========== admin 用户 ===========
+      # =========== admin ===========
       ADMIN_USERNAME: admin
       ADMIN_PASSWORD: adminadmin
-      ADMIN_GONGGAO: ""
-      ADMIN_CODE: ""
+      ADMIN_UPDATE: "false"
 
       # =========== 用户权限 ===========
-      USER_ALLOWCHANGE: "true"
-      USER_ALLOWUPTXT: "false"
-      USER_ALLOWCACHE: "false"
-      USER_ALLOWIMG: "false"
-      USER_ALLOWCHECK: "false"
       USER_SOURCE: "0"
-      USER_MAXSOURCE: "0"
-      USER_TIMEOUT: "0"
+      USER_ALLOWCHANGE: "true"
       USER_PROXYPNG: "false"
-      USER_INDEX: "0"
 
-      # =========== SMTP 邮件（可选） ===========
-      #SMTP_HOST:
-      #SMTP_PORT:
-      #SMTP_ACCOUNT:
-      #SMTP_PASSWORD:
-
-      # =========== 自动采集配置（新增） ===========
+      # =========== 自动采集 ===========
       AUTO_CRAWL: "true"
       AUTO_UPDATE: "true"
 
-      # =========== 定时更新（建议共享后端关闭） ===========
-      ADMIN_UPDATE: "false"
-
     volumes:
-      - ./appdata:/app
-    working_dir: /app
-    command: >
-      sh -c "
-        if [ ! -f /app/read.jar ]; then
-          echo '请将 read.jar 放入 ./appdata/ 目录';
-          exit 1;
-        fi;
-        exec java -jar /app/read.jar
-      "
+      - ./appdata:/app/storage
