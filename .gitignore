@@ -89,4 +89,3 @@ png/
 .DS_Store
 
 # Library JARs (download via gradle)
-book/src/lib/*.jar
