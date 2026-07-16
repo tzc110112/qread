@@ -22,7 +22,7 @@ open class DbConfig {
             ,UserBookSource::class.java,ReplaceRule::class.java,HttpTts::class.java,UserRssSource::class.java, BackGround::class.java,RssSource::class.java,
             Item::class.java,Bookmark::class.java,
             Sgread::class.java,
-            SourceCrawlTask::class.java,
+            SourceCrawlTask::class.java,)
     }
 
     @Bean

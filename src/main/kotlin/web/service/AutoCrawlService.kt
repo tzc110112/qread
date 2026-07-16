@@ -167,7 +167,6 @@ object AutoCrawlService {
      * 解析书源的发现规则，获取所有分类页URL
      */
     private fun resolveExploreUrls(task: SourceCrawlTask, bs: BookSource, user: Users): List<String> {
-        val exploreRule = bs.getExploreRule()
         // 如果已有缓存的URL列表，直接使用
         if (!task.exploreUrls.isNullOrBlank()) {
             val cached = runCatching {
@@ -180,22 +179,14 @@ object AutoCrawlService {
         val urls = mutableListOf<String>()
 
         // 情况1: 直接有 ruleExplore 的 exploreUrl
-        if (!exploreRule.exploreUrl.isNullOrBlank()) {
+        if (!bs.exploreUrl.isNullOrBlank()) {
             // 尝试分割多个探索URL
-            val parts = exploreRule.exploreUrl.split("\n")
+            val parts = bs.exploreUrl!!.split("\n")
             urls.addAll(parts.filter { it.isNotBlank() })
         }
 
-        // 回退: 如果有 ruleExplore.style，用其分组名称
-        if (urls.isEmpty() && !exploreRule.style.isNullOrBlank()) {
-            // style 一般是 JSON 数组，包含分组名称
-            // 探索URL可能来自 style 中定义的分类
-            // 这里我们用 bookSourceUrl 作为基础，让引擎自己去发现
-            urls.add(bs.bookSourceUrl)
-        }
-
+        // 回退: 使用书源URL作为探索入口
         if (urls.isEmpty()) {
-            // 最后的回退: 使用书源的 bookSourceUrl + 默认探索路径
             urls.add(bs.bookSourceUrl)
         }
 
